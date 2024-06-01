@@ -41,7 +41,7 @@ public class Login extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource() == btnLogin){
-            if(txtName.getText().compareTo("soksan")==0 && txtPw.getText().compareTo("123456") ==0)
+            if(txtName.getText().compareTo("soksan")==0 && String.valueOf(txtPw.getPassword()).compareTo("123456") ==0)
                 JOptionPane.showMessageDialog(null, "You're logged in!");
             else{
                 if(error <=2){
