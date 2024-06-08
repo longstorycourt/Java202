@@ -18,7 +18,6 @@ public class JChkbox extends JFrame implements ActionListener{
                 System.exit(0);
             }
         });
-
     setSize(450,300);
     jbx1 = new JCheckBox("China");
     jbx2 = new JCheckBox("Japan");
@@ -48,7 +47,7 @@ public class JChkbox extends JFrame implements ActionListener{
         select3 = jbx3.isSelected();
         selection = "";
         if(select1){
-            selection = "";
+            selection = "D:\\CS201-202\\JAVA\\Java202\\week-02\\china flag.png";
             answer1.setIcon(new ImageIcon(selection));
         }
         else{
@@ -56,7 +55,7 @@ public class JChkbox extends JFrame implements ActionListener{
             answer1.setIcon(new ImageIcon(selection));
         }
         if (select2) {
-            selection = "";
+            selection = "D:\\CS201-202\\JAVA\\Java202\\week-02\\Flag_of_Japan.svg.png";
             answer2.setIcon(new ImageIcon(selection));
         }
         else{
@@ -64,7 +63,7 @@ public class JChkbox extends JFrame implements ActionListener{
             answer2.setIcon(new ImageIcon(selection));
         }
         if (select3) {
-            selection = "";
+            selection = "D:\\CS201-202\\JAVA\\Java202\\week-02\\Flag_of_Cambodia.svg.png";
             answer3.setIcon(new ImageIcon(selection));
         }
         else{
@@ -73,8 +72,8 @@ public class JChkbox extends JFrame implements ActionListener{
         }
     }
     
-    public static void main(String[] args) throws Exception {
-    UIManager.setLookAndFeel(UIMananger.getSystemLookAndFeelClassName());
-    new JChkBox("JCheckbox on JFrame");
-    }
+    public static void main(String[] args) {
+        //UIManager.setLookAndFeel(UIMananger.getSystemLookAndFeelClassName());
+        new JChkbox("Hello");
+        }
 }
