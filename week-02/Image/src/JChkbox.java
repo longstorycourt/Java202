@@ -18,27 +18,24 @@ public class JChkbox extends JFrame implements ActionListener{
                 System.exit(0);
             }
         });
-    setSize(450,300);
-    jbx1 = new JCheckBox("China");
-    jbx2 = new JCheckBox("Japan");
-    jbx3 = new JCheckBox("");
-    answer1 = new JLabel();
-    answer2 = new JLabel();
-    answer3 = new JLabel();
+        setSize(450,300);
+        jbx1 = new JCheckBox("China");
+        jbx2 = new JCheckBox("Japan");
+        jbx3 = new JCheckBox("");         jbx3.setText("Cambodia");
 
-    jbx3.setText("Cambodia");
-    jbx1.addActionListener(this);
-    jbx2.addActionListener(this);
-    jbx3.addActionListener(this);
-    setLayout(new FlowLayout(FlowLayout.LEFT));
-    add(jbx1);
-    add(jbx2);
-    add(jbx3);
-    add(answer1);
-    add(answer2);
-    add(answer3);
-    setLocationRelativeTo(null);
-    setVisible(true);
+        answer1 = new JLabel();
+        answer2 = new JLabel();
+        answer3 = new JLabel();
+
+        jbx1.addActionListener(this);
+        jbx2.addActionListener(this);
+        jbx3.addActionListener(this);
+
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+        add(jbx1);        add(jbx2);        add(jbx3);
+        add(answer1);        add(answer2);        add(answer3);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae){
