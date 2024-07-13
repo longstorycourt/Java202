@@ -13,6 +13,8 @@ public class FileWriteReadDemo {
             FileWriter fileWriter = new FileWriter("inout.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
+            //FileWriter fileWriter = new FileWriter(new BufferedWriter("inout.txt"));
+
             bufferedWriter.write("First line");
             bufferedWriter.newLine();
             bufferedWriter.write("Second line");

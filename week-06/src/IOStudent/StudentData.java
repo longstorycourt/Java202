@@ -44,18 +44,18 @@ public class StudentData{
         try(FileOutputStream fileOutput = new FileOutputStream("StudentData.ser");
             ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput)){
                 objectOutput.writeObject(students);
-            }
-            catch(IOException e){
+        }
+        catch(IOException e){
                 e.printStackTrace();
             }
         //Deserialize and read from file
         try(FileInputStream fileInput = new FileInputStream("StudentData.ser");
             ObjectInputStream ObjectInput = new ObjectInputStream(fileInput)){
                 students = (Student[]) ObjectInput.readObject();
-            }
-            catch(ClassNotFoundException | IOException e){
+        }
+        catch(ClassNotFoundException | IOException e){
                 e.printStackTrace();
-            }
+        }
         for(Student student : students){
             System.out.println(student);
         }
