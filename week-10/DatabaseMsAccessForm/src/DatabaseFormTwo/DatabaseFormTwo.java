@@ -43,7 +43,7 @@ public class DatabaseFormTwo extends JFrame {
 
         pnlContent.add(lblId);
         pnlContent.add(txtId);
-        pnlContent.add(new JLabel());
+        pnlContent.add(btnInsert);
 
         pnlContent.add(lblName);
         pnlContent.add(txtName);
@@ -66,129 +66,146 @@ public class DatabaseFormTwo extends JFrame {
         pnlButton.add(btnLast);
         add(pnlButton, BorderLayout.SOUTH);
 
-        try{
+        try {
             con = DriverManager.getConnection(url);
-            stm = con.createStatement();
-            rss = stm.executeQuery("SELECT * FROM TbStudent");
-
-            updatingRow(rss);
-
+            stm = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            rss = stm.executeQuery("SELECT * FROM TbStudent;");
+            rss.last();
+            rowCount = rss.getRow();
             rss.first();
-            settingText(rss);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        btnFirst.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    rss.first();
-                    settingText(rss);
-                } catch (SQLException e1) {
-                    
-                    e1.printStackTrace();
-                }
-            }
-        });
-        btnPrevious.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                try{
-                    rss.previous();
-                    if(rss.isBeforeFirst())
-                        rss.first();
-                    else
-                        settingText(rss);
-                }
-                catch(SQLException ae){
-                    ae.printStackTrace();
-                }
-            }
-        });
-        btnNext.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                try{
-                    rss.next();
-                    if(rss.isAfterLast())
-                        rss.last();
-                    else
-                        settingText(rss);
-                }
-                catch(SQLException ae){
-                    ae.printStackTrace();
-                }
-            }
-        });
-        btnLast.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                try{
-                    rss.last();                        settingText(rss);
-                }
-                catch(SQLException ae){
-                    ae.printStackTrace();
-                }
-            }
-        });
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent we){
-                try{
-                    rss.close();
-                    con.close();
-                }
-                catch(SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        btnInsert.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae){
-                String id = txtId.getText();
-                String name = txtName.getText();
-                String sex = cboSex.getSelectedItem().toString();
-                String score = txtScore.getText();
-                String sql = "INSERT INTO TbStudent VALUES( '"+ id+ "','"+ name+ "',"+sex+ "','"+score+ ");";
-                //Execute the insertion
-                try{
-                    System.out.println(sql);
-                    stm.executeUpdate(sql);
-                }
-                catch(SQLException e){
-                    e.printStackTrace();
-                }
-                //Update the row count
-                try{
-                    rss = stm.executeQuery("SELECT * FROM TbStudent;");
-                    updatingRow(rss);   
-                }
-                catch(SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-    public void settingText(ResultSet rss){
-        try{
             txtId.setText(rss.getString(1));
             txtName.setText(rss.getString(2));
             cboSex.setSelectedItem(rss.getString(3));
             txtScore.setText("" + rss.getInt(4));
-            updatingRow(rss);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
-    public void updatingRow(ResultSet rss){
-        try {
+            lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+         } catch (SQLException e) {
+               e.printStackTrace();
+            }
+         btnFirst.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+               try {
+                     rss.first();
+                     txtId.setText(rss.getString(1));
+                     txtName.setText(rss.getString(2));
+                     cboSex.setSelectedItem(rss.getString(3));
+                     txtScore.setText("" + rss.getInt(4));
+                     lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+               } catch (SQLException e) {
+                     e.printStackTrace();
+                  }
+            }
+         });
+		
+      btnPrevious.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+            try {
+               rss.previous();
+               if(rss.isBeforeFirst())
+                  rss.first();
+               else {
+                     txtId.setText(rss.getString(1));
+                     txtName.setText(rss.getString(2));
+                     cboSex.setSelectedItem(rss.getString(3));
+                     txtScore.setText("" + rss.getInt(4));
+                     lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+	}
+            } catch (SQLException e) {
+	e.printStackTrace();
+               }
+         }
+      });
+		
+      btnNext.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+            try {
+               rss.next();
+               if(rss.isAfterLast())
+	rss.last();
+               else {
+	txtId.setText(rss.getString(1));
+	txtName.setText(rss.getString(2));
+	cboSex.setSelectedItem(rss.getString(3));
+	txtScore.setText("" + rss.getInt(4));
+	lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+	}
+            } catch (SQLException e) {
+	e.printStackTrace();
+               }
+         }
+      });
+		
+   btnLast.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+         try {
             rss.last();
-                rowCount = rss.getRow();
-                lblRec.setText("Rec: "+ rss.getRow()+"/"+rowCount);
-        } catch (SQLException e) {
+            txtId.setText(rss.getString(1));
+            txtName.setText(rss.getString(2));
+            cboSex.setSelectedItem(rss.getString(3));
+            txtScore.setText("" + rss.getInt(4));
+            lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+         } catch (SQLException e) {
             e.printStackTrace();
-        }
+         }
+      }
+   });
+   addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent we) {
+         try {
+            rss.close();
+            con.close();
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+   });
+		
+   btnInsert.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+         String id = txtId.getText();
+         String name = txtName.getText();
+         String sex = cboSex.getSelectedItem().toString();
+         String score = txtScore.getText();
+         String sql = "INSERT INTO TbStudent (Id, Name, Sex, Score) VALUES ('" + id + "', '" + name + "', '" + sex + "', " + score + ");";
+         try {
+            System.out.println(sql);
+            stm.execute(sql);
+         } catch (SQLException e) {
+            e.printStackTrace();
+           }
+         try {
+            rss = stm.executeQuery("SELECT * FROM TbStudent;");
+            rss.last();
+            rowCount = rss.getRow();
+            lblRec.setText("Rec: " + rss.getRow() + "/" + rowCount);
+         } catch (SQLException e) {
+               e.printStackTrace();
+         }
+      }
+   });
+   setLocationRelativeTo(null);
+   setVisible(true);
     }
+    // public void settingText(ResultSet rss){
+    //     try{
+    //         txtId.setText(rss.getString(1));
+    //         txtName.setText(rss.getString(2));
+    //         cboSex.setSelectedItem(rss.getString(3));
+    //         txtScore.setText("" + rss.getInt(4));
+    //         updatingRow(rss);
+    //     }
+    //     catch(SQLException e){
+    //         e.printStackTrace();
+    //     }
+    // }
+    // public void updatingRow(ResultSet rss){
+    //     try {
+    //         rss.last();
+    //             rowCount = rss.getRow();
+    //             lblRec.setText("Rec: "+ rss.getRow()+"/"+rowCount);
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
     public static void main(String[] args) throws Exception {
         UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         new DatabaseFormTwo();

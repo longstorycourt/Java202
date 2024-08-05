@@ -91,7 +91,7 @@ public class DatabaseFormOne extends JFrame {
             }
         });
         addWindowListener(new WindowAdapter() {
-            public void closeWindow(WindowEvent we){
+            public void windowClosing(WindowEvent we){
                 try{
                     rss.close();
                     con.close();
