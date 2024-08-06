@@ -21,7 +21,8 @@ public class JChkbox extends JFrame implements ActionListener{
         setSize(450,300);
         jbx1 = new JCheckBox("China");
         jbx2 = new JCheckBox("Japan");
-        jbx3 = new JCheckBox("");         jbx3.setText("Cambodia");
+        jbx3 = new JCheckBox("");         
+        jbx3.setText("Cambodia");
 
         answer1 = new JLabel();
         answer2 = new JLabel();
