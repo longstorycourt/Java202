@@ -19,7 +19,7 @@ public class DbConnect1 {
                 long score = rss.getLong("Score");
                 System.out.println(id + "  "+ name+"  "+ sex+"  "+score);
             }
-            stm.executeUpdate(("UPDATE"))
+            // stm.executeUpdate(("UPDATE"));
         }
         catch(SQLException e){
             e.printStackTrace();
